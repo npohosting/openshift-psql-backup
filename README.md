@@ -1,4 +1,4 @@
-# openshift-mysql-backup
+# openshift-psql-backup
 
 This container can be used to schedule backups of mysql services within OpenShift.
 Currently you will need either a remote server accessible by ssh or an Amazon S3 bucket to use this.
