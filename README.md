@@ -1,6 +1,6 @@
-# openshift-psql-backup
+# openshift-pgsql-backup
 
-This container can be used to schedule backups of mysql services within OpenShift.
+This container can be used to schedule backups of PostgreSQL services within OpenShift.
 Currently you will need either a remote server accessible by ssh or an Amazon S3 bucket to use this.
 
 **NOTE:** Not yet tested with rsync options.
@@ -10,7 +10,7 @@ Currently you will need either a remote server accessible by ssh or an Amazon S3
 The container has several options you can specify, most of them are required:
 
  - **NAME** \
- *Default: psql-cron* \
+ *Default: pgsql-cron* \
  Sets the name of the cronjob and service. Only required when you wish to run multiple cronjobs within the same project
 
  - **PGSQL_SERVICE** \
@@ -38,7 +38,7 @@ The container has several options you can specify, most of them are required:
 Before we can create the cronjobs, we need to create some secrets storing the identity file used by rsync:
 
 ``$ ssh-keygen -f $filename`` \
-``$ oc create secret generic mysql-backup-ssh-key --from-file=$filename``
+``$ oc create secret generic pgsql-backup-ssh-key --from-file=$filename``
 
 ### Rsync extra settings
 
@@ -55,16 +55,16 @@ Before we can create the cronjobs, we need to create some secrets storing the id
  Sets the user used to login on to the target host.
 
  - **RSYNC_SECRET_NAME** \
- *Default mysql-backup-ssh-key* \
+ *Default pgsql-backup-ssh-key* \
  Sets the name of the secret used earlier to import the SSH key.
 
  - **RSYNC_KEY_NAME** \
- *Default mysql_backup* \
+ *Default pgsql_backup* \
  Sets the key name of the SSH key inside the secret, this is the same as `$filename` used when making the SSH key.
 
 ### Run the cronjob
 
-``$ oc process -p MYSQL_SERVICE=postgresql -p RSYNC_TARGET_HOST=example.com -p RSYNC_TARGET_LOCATION=pgsql-backup -p RSYNC_USER=username -p RSYNC_SECRET_NAME=pgsql-backup-ssh-key -p RSYNC_KEY_NAME=pgsql_backup -f https://raw.githubusercontent.com/npohosting/openshift-psql-backup/master/cron-rsync.yaml | oc create -f -``
+``$ oc process -p PGSQL_SERVICE=postgresql -p RSYNC_TARGET_HOST=example.com -p RSYNC_TARGET_LOCATION=pgsql-backup -p RSYNC_USER=username -p RSYNC_SECRET_NAME=pgsql-backup-ssh-key -p RSYNC_KEY_NAME=pgsql_backup -f https://raw.githubusercontent.com/npohosting/openshift-psql-backup/master/cron-rsync.yaml | oc create -f -``
 
 ### Delete the cronjob
 ``$ oc process -f cron-rsync.yaml | oc detele -f -``
@@ -87,7 +87,7 @@ Before you can use this method, you will need an Amazon s3 bucket and an account
 
 ### Run the cronjob
 
-``$ oc process -p MYSQL_SERVICE=postgresql -p AWS_S3_BUCKET=my-bucket -f https://raw.githubusercontent.com/npohosting/openshift-psql-backup/master/cron-s3.yaml | oc create -f -``
+``$ oc process -p PGSQL_SERVICE=postgresql -p AWS_S3_BUCKET=my-bucket -f https://raw.githubusercontent.com/npohosting/openshift-psql-backup/master/cron-s3.yaml | oc create -f -``
 
 ### Delete the cronjob
 ``$ oc process -f cron-s3.yaml | oc detele -f -``

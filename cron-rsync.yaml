@@ -13,7 +13,7 @@ parameters:
     description: "Schedule for running the cronjob"
     value: "0 3 * * *"
   - name: PGSQL_SERVICE
-    description: "Which MySQL service needs to be backed up."
+    description: "Which PostgreSQL service needs to be backed up."
     required: true
     value:
 
@@ -42,10 +42,10 @@ parameters:
     value:
   - name: RSYNC_SECRET_NAME
     description: "Name for the rsync private key secret name"
-    value: mysql-backup-ssh-key
+    value: pgsql-backup-ssh-key
   - name: RSYNC_KEY_NAME
-    description: "Private key file name used to make the ssh key (eg. mysql_backup)"
-    value: "mysql_backup"
+    description: "Private key file name used to make the ssh key (eg. pgsql_backup)"
+    value: "pgsql_backup"
 
 
   - name: NOTIFY_SLACK_ENABLED

@@ -52,7 +52,7 @@ elif [ "$STORAGE_METHOD" == "rsync" ] ; then
     if [ -z $RSYNC_IDENTITY_FILE ] ;        then report_result rsync_noident ; exit 1 ; fi
     if [ -z $RSYNC_USER ] ;                 then report_result rsync_nouser ; exit 1 ; fi
 
-    rsync -rave "ssh  -i $RSYNC_IDENTITY_FILE -o StrictHostKeyChecking=no" /tmp/mysql-*.sql.gz ${RSYNC_USER}@${RSYNC_TARGET_HOST}:${RSYNC_TARGET_LOCATION}
+    rsync -rave "ssh  -i $RSYNC_IDENTITY_FILE -o StrictHostKeyChecking=no" /tmp/pgsql-*.sql.gz ${RSYNC_USER}@${RSYNC_TARGET_HOST}:${RSYNC_TARGET_LOCATION}
 
     if [ "$?" == "0" ] ; then
         report_result job_success
