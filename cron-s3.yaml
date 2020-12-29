@@ -68,7 +68,7 @@ objects:
           spec:
             containers:
             - name: ${NAME}
-              image: registry.chp.npohosting.nl/backup-containers/psql-backup:latest
+              image: registry.npohosting.nl/npohosting/psql-backup:latest
               imagePullPolicy: Always
               env:
               - name: NAME

@@ -1,4 +1,4 @@
-FROM npohosting/base:3.9
+FROM registry.npohosting.nl/npohosting/base:3.12
 
 LABEL maintainer="NPO Hosting <hosting@npo.nl>"
 
@@ -8,7 +8,7 @@ RUN echo "## Install Basic Tools" \
         postgresql-client \
         openssh \
         rsync \
-        py2-pip \
+        py3-pip \
         bash \
         curl \
     && pip install awscli

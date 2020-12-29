@@ -81,7 +81,7 @@ objects:
           spec:
             containers:
             - name: ${NAME}
-              image: npohosting/psql-backup:latest
+              image: registry.npohosting.nl/npohosting/psql-backup:latest
               volumeMounts:
                 - name: secretmounts
                   mountPath: /tmp/secretmounts
